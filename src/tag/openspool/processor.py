@@ -36,8 +36,8 @@ class OpenspoolTagProcessor(NdefTagProcessor):
                 self.logger.error(f"OpenSpool payload parsing failed: JSON data is not a dict, got {type(data)}")
                 return None
 
-            if data.get('protocol') != 'openspool':
-                self.logger.error(f"OpenSpool payload parsing failed: Invalid protocol '{data.get('protocol')}', expected 'openspool'")
+            if data.get('protocol') not in ('openspool', 'filaman'):
+                self.logger.error(f"OpenSpool payload parsing failed: Invalid protocol '{data.get('protocol')}', expected 'openspool' or 'filaman'")
                 return None
             
             brand = data.get('brand', 'Generic')
