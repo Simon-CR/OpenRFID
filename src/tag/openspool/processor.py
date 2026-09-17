@@ -42,6 +42,8 @@ class OpenspoolTagProcessor(NdefTagProcessor):
             
             brand = data.get('brand', 'Generic')
             main_type = data.get('type', 'PLA').upper()
+            if main_type == 'APLA':
+                main_type = 'PLA'
             subtype = data.get('subtype', '')
             color_hex = self.__parse_color_hex(data.get('color_hex', 'FFFFFF'))
             alpha = max(0x00, min(0xFF, int(data.get('alpha', 'FF'), 16)))
