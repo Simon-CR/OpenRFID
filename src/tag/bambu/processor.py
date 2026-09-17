@@ -109,7 +109,7 @@ class BambuTagProcessor(MifareClassicTagProcessor):
         self.logger.debug(" Bed Temp (C): %d", bed_temp)
         self.logger.debug(" Hotend Max Temp (C): %d", hotend_max_temp)
         self.logger.debug(" Hotend Min Temp (C): %d", hotend_min_temp)
-        self.logger.debug(" Tray UID: %s", tray_uid.hex(":").upper())
+        self.logger.info(" Tray UID: %s", tray_uid.hex(":").upper())
         self.logger.debug(" Production Date/Time: %s", production_datetime)
         self.logger.debug(" Manufacturing Date: %s", manufacturing_date)
         self.logger.debug(" Color Count: %d", color_count)
@@ -128,7 +128,8 @@ class BambuTagProcessor(MifareClassicTagProcessor):
             bed_temp_c=bed_temp,
             drying_temp_c=drying_temp,
             drying_time_hours=drying_time,
-            manufacturing_date=manufacturing_date
+            manufacturing_date=manufacturing_date,
+            tray_uid=tray_uid
         )
 
     def __hkdf_create_key(self, uid : bytes) -> TagAuthentication:

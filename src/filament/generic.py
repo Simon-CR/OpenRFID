@@ -26,7 +26,8 @@ class GenericFilament:
                  drying_temp_c: float,
                  drying_time_hours: float,
                  manufacturing_date: str, # ISO 8601 date string
-                 td: float = 0.0 # Transmission Distance in mm for HueForge/OrcaSlicer-FullSpectrum
+                 td: float = 0.0, # Transmission Distance in mm for HueForge/OrcaSlicer-FullSpectrum
+                 tray_uid: bytes = b''
                  ):
         self.source_processor = source_processor
         self.unique_id = unique_id
@@ -43,6 +44,7 @@ class GenericFilament:
         self.drying_time_hours = drying_time_hours
         self.manufacturing_date = manufacturing_date
         self.td = td
+        self.tray_uid = tray_uid
 
         if "CF" in self.modifiers:
             self.type += "-CF"
@@ -102,7 +104,8 @@ class GenericFilament:
             "drying_temp_c": self.drying_temp_c,
             "drying_time_hours": self.drying_time_hours,
             "manufacturing_date": self.manufacturing_date,
-            "td": self.td
+            "td": self.td,
+            "tray_uid": self.tray_uid.hex().upper() if self.tray_uid else ""
         }
     
     @staticmethod
