@@ -121,7 +121,20 @@ class Runtime:
             logging.info(filament.pretty_text())
             reader.set_last_read_uid(uid)
         else:
-            logging.warning(f"Failed to read data from tag.")
+            if retry:
+                logging.warning(f"Failed to read data from tag, retrying.")
+            else:
+                logging.warning(f"Failed to read data from tag, using fallback UID.")
+                # Create a baseline GenericFilament
+                filament = GenericFilament()
+                filament.source_processor = "Fallback/UID"
+                filament.unique_id = uid.upper()
+                filament.manufacturer = "Generic"
+                filament.type = "PLA"
+                filament.extruder_temp = 210
+                filament.color = [0, 0, 0]
+                filament.color_hex = "#000000"
+                reader.set_last_read_uid(uid)
 
         return (scan_result, filament, retry)
 
